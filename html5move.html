@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+	<style>
+#msg{overflow: hidden; height: 40px; line-height: 40px;}
+#box{width: 300px; height: 120px; line-height: 120px; border: 3px solid #000; text-align: center; font-size: 40px; float: left; margin-right: 
+	50px; background: url(bg.png) 30px 30px no-repeat; padding-top: 20px;}
+#box img{width: 70px; height: 100px; border: 1px solid blue; margin: 2px;}
+#tgt{overflow: hidden;}
+#tgt img{width: 70px; height: 100px; float: left; border: 3px solid #000; margin: 2px;}
+#tgt .red{border-color: red;}
+</style>
+
+</head>
+<body>
+	
+	拖动的目标是：<h1 id="msg"></h1>
+	<div id="box"></div>
+	<div id="tgt">
+		<img id="tu1" draggable="true" src="1.jpg" alt="设备111">
+		<img id="tu2" draggable="true" src="2.jpg" alt="设备222">
+		<img id="tu3" draggable="true" src="3.jpg" alt="设备333">
+	
+	</div>
+	
+	<script>
+	var msg=document.getElementById('msg');
+	var box=document.getElementById('box');
+	var tgt=document.getElementById('tgt');
+	var tu=null;
+
+	tgt.ondragstart=function (ev){
+		var event=window.event||ev;
+		event.target.className='red';
+		msg.innerHTML=event.target.alt;
+		tu=event.target;
+	};
+	tgt.ondrag=function (ev){
+		var event=window.event||ev;
+		event.target.style.borderWidth='5px';
+	};
+	tgt.ondragend=function (ev){
+		var event=window.event||ev;
+		event.target.className='';
+	};
+	box.ondragenter=function (ev){
+		var event=window.event||ev;
+		box.style.border='3px solid red';
+	};
+	box.ondragover=function (ev){
+		var event=window.event||ev;
+		event.preventDefault();
+	};
+	box.ondragleave=function (){
+		box.style.border='1px solid black'
+	};
+	box.ondrop=function (ev){
+		var event=window.event||ev;
+		event.preventDefault();
+		box.appendChild(tu);
+		box.style.background='none';
+	};
+	</script>
+
+</body>
+</html>
